@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System — A Nova Ordem do Dinheiro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=Anton&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   DESIGN TOKENS — A NOVA ORDEM DO DINHEIRO
+   ========================================================= */
+:root {
+  /* --- Background / surfaces --- */
+  --bg-base:        #04060D;       /* fundo absoluto */
+  --bg-elevated:    #0A1020;       /* cards, seções elevadas */
+  --bg-surface:     #0F172A;       /* cards internos, inputs */
+  --bg-glow:        #0B1B3A;       /* base para gradientes radiais */
+
+  /* --- Brand blues (cyan / azul elétrico) --- */
+  --blue-50:        #E6F4FF;
+  --blue-100:       #BDE2FF;
+  --blue-200:       #8DD5FF;
+  --blue-300:       #69C5FF;
+  --blue-400:       #5BB7F7;       /* destaque principal — "FRANCISCO BELTRÃO" */
+  --blue-500:       #2A8FE0;
+  --blue-600:       #1E6BC2;
+  --blue-700:       #1E40AF;       /* botão azul escuro (landing) */
+  --blue-800:       #14306E;
+  --blue-900:       #0A1F4A;
+
+  /* --- CTA Green (botões em anúncios) --- */
+  --green-300:      #6EE7B7;
+  --green-400:      #4ADE80;
+  --green-500:      #22C55E;       /* CTA principal nos ads */
+  --green-600:      #16A34A;
+  --green-700:      #15803D;
+
+  /* --- Urgency / alerta --- */
+  --red-400:        #F87171;
+  --red-500:        #EF4444;
+  --red-600:        #DC2626;       /* ticker "VAGAS LIMITADAS" */
+  --red-700:        #B91C1C;
+
+  /* --- Gold (selo de garantia) --- */
+  --gold-300:       #FCD34D;
+  --gold-400:       #FBBF24;
+  --gold-500:       #F59E0B;
+
+  /* --- Neutros --- */
+  --white:          #FFFFFF;
+  --gray-100:       #F1F5F9;
+  --gray-200:       #E2E8F0;
+  --gray-300:       #CBD5E1;
+  --gray-400:       #94A3B8;       /* texto secundário */
+  --gray-500:       #64748B;
+  --gray-600:       #475569;
+  --gray-700:       #334155;
+  --gray-800:       #1E293B;
+  --gray-900:       #0F172A;
+
+  /* --- Tipografia --- */
+  --font-display:   'Bebas Neue', 'Anton', Impact, sans-serif;
+  --font-heading:   'Inter', system-ui, sans-serif;
+  --font-body:      'Inter', system-ui, sans-serif;
+  --font-mono:      'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  /* Escala tipográfica (rem) */
+  --fs-xs:    0.75rem;     /* 12px */
+  --fs-sm:    0.875rem;    /* 14px */
+  --fs-base:  1rem;        /* 16px */
+  --fs-lg:    1.125rem;    /* 18px */
+  --fs-xl:    1.25rem;     /* 20px */
+  --fs-2xl:   1.5rem;      /* 24px */
+  --fs-3xl:   1.875rem;    /* 30px */
+  --fs-4xl:   2.25rem;     /* 36px */
+  --fs-5xl:   3rem;        /* 48px */
+  --fs-6xl:   3.75rem;     /* 60px */
+  --fs-7xl:   4.5rem;      /* 72px */
+  --fs-8xl:   6rem;        /* 96px */
+
+  /* Pesos */
+  --fw-light:    300;
+  --fw-normal:   400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-extra:    800;
+  --fw-black:    900;
+
+  /* Line heights */
+  --lh-tight:   1.05;
+  --lh-snug:    1.2;
+  --lh-normal:  1.5;
+  --lh-relaxed: 1.7;
+
+  /* --- Espaçamento (sistema base 4px) --- */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* --- Border radius --- */
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:    12px;
+  --radius-xl:    16px;
+  --radius-2xl:   24px;
+  --radius-pill:  9999px;
+
+  /* --- Sombras / glows --- */
+  --shadow-sm:    0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md:    0 4px 12px rgba(0,0,0,0.45);
+  --shadow-lg:    0 12px 32px rgba(0,0,0,0.55);
+  --shadow-xl:    0 24px 60px rgba(0,0,0,0.65);
+  --glow-blue:    0 0 40px rgba(91,183,247,0.45), 0 0 120px rgba(91,183,247,0.20);
+  --glow-green:   0 0 24px rgba(34,197,94,0.45), 0 0 60px rgba(34,197,94,0.20);
+  --glow-red:     0 0 24px rgba(220,38,38,0.50);
+
+  /* --- Gradientes-assinatura --- */
+  --grad-bg-hero:   radial-gradient(ellipse at center, #0B1B3A 0%, #050B1C 45%, #02040A 100%);
+  --grad-bg-panel:  linear-gradient(180deg, #0A1428 0%, #050A18 100%);
+  --grad-blue-cta:  linear-gradient(135deg, #2A8FE0 0%, #1E40AF 100%);
+  --grad-green-cta: linear-gradient(135deg, #4ADE80 0%, #16A34A 100%);
+  --grad-text-blue: linear-gradient(180deg, #BDE2FF 0%, #5BB7F7 60%, #2A8FE0 100%);
+  --grad-light-beam:radial-gradient(ellipse at 50% 0%, rgba(91,183,247,0.35) 0%, rgba(91,183,247,0.10) 35%, transparent 70%);
+
+  /* Layout */
+  --container: 1200px;
+  --nav-w: 240px;
+}
+
+/* =========================================================
+   RESET BÁSICO
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--bg-base);
+  color: var(--gray-200);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================================
+   LAYOUT GERAL DA PÁGINA DO STYLE GUIDE
+   ========================================================= */
+.shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: var(--nav-w);
+  background: linear-gradient(180deg, #060B18 0%, #02040A 100%);
+  border-right: 1px solid rgba(91,183,247,0.12);
+  padding: var(--space-6);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+.sidebar .brand {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--blue-400);
+  margin-bottom: var(--space-1);
+}
+.sidebar .brand small {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: var(--fw-medium);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-top: 4px;
+}
+.sidebar nav { margin-top: var(--space-8); display: flex; flex-direction: column; gap: 2px; }
+.sidebar nav a {
+  color: var(--gray-400);
+  text-decoration: none;
+  font-size: var(--fs-sm);
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  transition: all .2s;
+  border-left: 2px solid transparent;
+}
+.sidebar nav a:hover {
+  color: var(--blue-300);
+  background: rgba(91,183,247,0.06);
+  border-left-color: var(--blue-400);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-12) var(--space-16);
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+section { padding: var(--space-16) 0; border-bottom: 1px solid rgba(91,183,247,0.08); }
+section:last-child { border-bottom: none; }
+
+h1.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-6xl);
+  letter-spacing: 0.02em;
+  line-height: var(--lh-tight);
+  color: var(--white);
+  margin: 0 0 var(--space-2);
+}
+h1.section-title .accent {
+  background: var(--grad-text-blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.section-lead {
+  font-size: var(--fs-lg);
+  color: var(--gray-400);
+  max-width: 640px;
+  margin: 0 0 var(--space-10);
+}
+h2.h2 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--white);
+  margin: var(--space-12) 0 var(--space-4);
+  letter-spacing: -0.01em;
+}
+h3.h3 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  color: var(--gray-200);
+  margin: var(--space-6) 0 var(--space-3);
+}
+
+p { margin: 0 0 var(--space-4); }
+.muted { color: var(--gray-400); }
+.tiny { font-size: var(--fs-xs); color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.12em; }
+
+/* =========================================================
+   HERO DO STYLE GUIDE
+   ========================================================= */
+.guide-hero {
+  position: relative;
+  padding: var(--space-20) 0 var(--space-16);
+  text-align: center;
+  overflow: hidden;
+}
+.guide-hero::before {
+  content: "";
+  position: absolute; inset: -20% -20% auto -20%; height: 80%;
+  background: var(--grad-light-beam);
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: 0;
+}
+.guide-hero > * { position: relative; z-index: 1; }
+.guide-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, var(--fs-8xl));
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  margin: 0;
+  color: var(--white);
+}
+.guide-hero h1 .blue {
+  background: var(--grad-text-blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: block;
+}
+.guide-hero .kicker {
+  display: inline-block;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--blue-300);
+  background: rgba(91,183,247,0.08);
+  border: 1px solid rgba(91,183,247,0.25);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-6);
+}
+.guide-hero p { color: var(--gray-400); max-width: 620px; margin: var(--space-6) auto 0; font-size: var(--fs-lg); }
+
+/* =========================================================
+   GRID HELPERS
+   ========================================================= */
+.grid { display: grid; gap: var(--space-4); }
+.grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.grid.cols-6 { grid-template-columns: repeat(6, 1fr); }
+@media (max-width: 900px) {
+  .grid.cols-3, .grid.cols-4, .grid.cols-6 { grid-template-columns: repeat(2, 1fr); }
+  .main { padding: var(--space-8) var(--space-4); }
+  .sidebar { display: none; }
+}
+
+/* =========================================================
+   COLOR SWATCHES
+   ========================================================= */
+.swatch {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-elevated);
+  border: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: transform .2s, border-color .2s;
+}
+.swatch:hover { transform: translateY(-2px); border-color: rgba(91,183,247,0.25); }
+.swatch .chip {
+  height: 110px;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-3);
+  position: relative;
+}
+.swatch .chip .role {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.45);
+  color: var(--white);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+.swatch .meta { padding: var(--space-3) var(--space-3) var(--space-4); }
+.swatch .meta .name { font-size: var(--fs-sm); font-weight: var(--fw-semibold); color: var(--white); }
+.swatch .meta .hex {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--gray-400);
+  margin-top: 4px;
+}
+.swatch.copied .meta .hex { color: var(--green-400); }
+
+/* =========================================================
+   TYPOGRAPHY DISPLAY
+   ========================================================= */
+.type-card {
+  background: var(--bg-elevated);
+  border: 1px solid rgba(91,183,247,0.10);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+}
+.type-card + .type-card { margin-top: var(--space-4); }
+.type-card .label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-300); }
+.type-card .sample-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  color: var(--white);
+  margin: var(--space-4) 0;
+}
+.type-card .sample-display .blue { background: var(--grad-text-blue); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.type-card .sample-h {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-bold);
+  color: var(--white);
+}
+.type-card .specs {
+  display: flex;
+  gap: var(--space-6);
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--gray-500);
+  flex-wrap: wrap;
+}
+.type-card .specs span strong { color: var(--gray-300); font-weight: var(--fw-semibold); }
+
+.scale-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-6);
+  padding: var(--space-3) 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.05);
+}
+.scale-row:last-child { border-bottom: none; }
+.scale-row .tag { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--gray-500); min-width: 64px; }
+.scale-row .px { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--gray-500); min-width: 80px; }
+.scale-row .sample { color: var(--white); font-weight: var(--fw-semibold); }
+
+/* =========================================================
+   BUTTONS — COMPONENTES REAIS
+   ========================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 14px 28px;
+  font-family: var(--font-body);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-base);
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .25s ease, filter .15s;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); filter: brightness(0.95); }
+
+.btn-green {
+  background: var(--grad-green-cta);
+  color: #04210F;
+  box-shadow: var(--glow-green), inset 0 1px 0 rgba(255,255,255,0.25);
+}
+.btn-green:hover { box-shadow: 0 0 32px rgba(34,197,94,0.55), 0 0 80px rgba(34,197,94,0.30), inset 0 1px 0 rgba(255,255,255,0.3); }
+
+.btn-blue {
+  background: var(--grad-blue-cta);
+  color: var(--white);
+  box-shadow: var(--glow-blue), inset 0 1px 0 rgba(255,255,255,0.20);
+}
+.btn-blue:hover { box-shadow: 0 0 48px rgba(91,183,247,0.55), 0 0 120px rgba(91,183,247,0.25), inset 0 1px 0 rgba(255,255,255,0.25); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--blue-300);
+  border: 1px solid rgba(91,183,247,0.35);
+}
+.btn-ghost:hover { background: rgba(91,183,247,0.08); border-color: var(--blue-400); }
+
+.btn-sm { padding: 10px 18px; font-size: var(--fs-sm); }
+.btn-lg { padding: 18px 36px; font-size: var(--fs-lg); }
+.btn-xl { padding: 22px 48px; font-size: var(--fs-xl); }
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+.card {
+  background: var(--bg-elevated);
+  border: 1px solid rgba(91,183,247,0.10);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+  transition: border-color .2s, transform .2s;
+}
+.card:hover { border-color: rgba(91,183,247,0.30); transform: translateY(-2px); }
+.card .card-title {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-bold);
+  color: var(--white);
+  font-size: var(--fs-lg);
+  margin-bottom: var(--space-2);
+}
+.card .card-body { color: var(--gray-400); font-size: var(--fs-sm); }
+
+.card-feature {
+  background: var(--grad-bg-panel);
+  border: 1px solid rgba(91,183,247,0.18);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  position: relative;
+  overflow: hidden;
+}
+.card-feature::before {
+  content: "";
+  position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+  width: 200%; height: 100%;
+  background: var(--grad-light-beam);
+  opacity: 0.6;
+  pointer-events: none;
+}
+.card-feature .icon {
+  width: 56px; height: 56px;
+  border-radius: var(--radius-md);
+  background: rgba(91,183,247,0.10);
+  border: 1px solid rgba(91,183,247,0.30);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--blue-300);
+  font-size: 28px;
+  margin-bottom: var(--space-4);
+  position: relative;
+}
+
+/* =========================================================
+   BADGES / TICKER / TIMER
+   ========================================================= */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.badge-red { background: rgba(220,38,38,0.15); color: var(--red-400); border: 1px solid rgba(220,38,38,0.35); }
+.badge-blue { background: rgba(91,183,247,0.10); color: var(--blue-300); border: 1px solid rgba(91,183,247,0.30); }
+.badge-green { background: rgba(34,197,94,0.10); color: var(--green-400); border: 1px solid rgba(34,197,94,0.35); }
+.badge-gold { background: rgba(245,158,11,0.10); color: var(--gold-400); border: 1px solid rgba(245,158,11,0.35); }
+
+.ticker {
+  background: var(--red-600);
+  color: var(--white);
+  padding: 8px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border-radius: var(--radius-md);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.18em;
+  font-size: var(--fs-xs);
+  position: relative;
+}
+.ticker .ticker-track {
+  display: inline-block;
+  padding-left: 100%;
+  animation: ticker-scroll 18s linear infinite;
+}
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+.timer {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-3xl);
+  color: var(--white);
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(220,38,38,0.40);
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  letter-spacing: 0.06em;
+}
+.timer .colon { color: var(--red-500); opacity: 0.9; }
+
+/* =========================================================
+   PRICING CARD
+   ========================================================= */
+.pricing {
+  background: linear-gradient(180deg, #0F1B3A 0%, #07112A 100%);
+  border: 1px solid rgba(91,183,247,0.35);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  max-width: 360px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--glow-blue);
+}
+.pricing .lote {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  letter-spacing: 0.06em;
+  color: var(--blue-300);
+  line-height: 1;
+}
+.pricing .progress {
+  height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin: var(--space-4) 0;
+}
+.pricing .progress > span {
+  display: block;
+  height: 100%;
+  width: 87%;
+  background: var(--grad-blue-cta);
+  border-radius: var(--radius-pill);
+}
+.pricing .price {
+  font-family: var(--font-display);
+  font-size: var(--fs-7xl);
+  color: var(--white);
+  line-height: 1;
+  margin: var(--space-4) 0 var(--space-6);
+}
+.pricing .price small { font-size: var(--fs-2xl); color: var(--blue-300); margin-right: 6px; vertical-align: top; }
+.pricing ul { list-style: none; padding: 0; margin: 0 0 var(--space-6); text-align: left; }
+.pricing li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--gray-300);
+  padding: 6px 0;
+}
+.pricing li::before { content: "✓"; color: var(--green-400); font-weight: var(--fw-bold); }
+
+/* =========================================================
+   GUARANTEE SEAL
+   ========================================================= */
+.seal {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #FCD34D, #B45309 80%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: var(--font-display);
+  color: #1A1100;
+  border: 6px double rgba(0,0,0,0.25);
+  box-shadow: 0 12px 40px rgba(245,158,11,0.30), inset 0 -8px 20px rgba(0,0,0,0.25);
+  text-align: center;
+  position: relative;
+}
+.seal .big { font-size: 2.4rem; line-height: 1; font-weight: 700; }
+.seal .small { font-size: 0.65rem; letter-spacing: 0.15em; }
+
+/* =========================================================
+   PREVIEW MOCKUP — ANÚNCIO
+   ========================================================= */
+.ad-preview {
+  position: relative;
+  aspect-ratio: 4/5;
+  background: radial-gradient(ellipse at 50% 30%, #0E2455 0%, #051226 55%, #02050E 100%);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid rgba(91,183,247,0.15);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: var(--space-8);
+  text-align: center;
+}
+.ad-preview::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 25%, rgba(91,183,247,0.30) 0%, transparent 45%),
+    repeating-linear-gradient(125deg, transparent 0 50px, rgba(91,183,247,0.04) 50px 51px);
+  pointer-events: none;
+}
+.ad-preview .logo-stack {
+  position: absolute;
+  top: 38%; left: 50%; transform: translate(-50%,-50%);
+  text-align: center;
+  font-family: var(--font-display);
+  color: rgba(91,183,247,0.18);
+  font-size: 4rem;
+  letter-spacing: 0.05em;
+  line-height: 0.85;
+  pointer-events: none;
+}
+.ad-preview .ad-kicker { font-family: var(--font-heading); font-weight: var(--fw-semibold); color: var(--white); font-size: var(--fs-sm); letter-spacing: 0.08em; position: relative; }
+.ad-preview .ad-city {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  background: var(--grad-text-blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin: var(--space-2) 0 var(--space-4);
+  position: relative;
+}
+.ad-preview .ad-sub { color: var(--white); font-size: var(--fs-base); position: relative; margin-bottom: var(--space-4); }
+.ad-preview .ad-tagline { color: var(--gray-300); font-size: var(--fs-xs); position: relative; margin-bottom: var(--space-4); }
+
+/* =========================================================
+   CODE BLOCKS
+   ========================================================= */
+pre.code {
+  background: #02050E;
+  border: 1px solid rgba(91,183,247,0.15);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--gray-300);
+  overflow-x: auto;
+  line-height: 1.6;
+}
+pre.code .com { color: var(--gray-500); }
+pre.code .key { color: var(--blue-300); }
+pre.code .val { color: var(--green-400); }
+
+/* =========================================================
+   DO / DON'T
+   ========================================================= */
+.rule {
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  border: 1px solid;
+}
+.rule.do { background: rgba(34,197,94,0.06); border-color: rgba(34,197,94,0.30); }
+.rule.dont { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.30); }
+.rule .rule-head { display: flex; align-items: center; gap: var(--space-2); font-weight: var(--fw-bold); margin-bottom: var(--space-2); }
+.rule.do .rule-head { color: var(--green-400); }
+.rule.dont .rule-head { color: var(--red-400); }
+
+/* =========================================================
+   TOKEN TABLE
+   ========================================================= */
+table.tokens {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  font-family: var(--font-mono);
+}
+table.tokens th, table.tokens td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px dashed rgba(91,183,247,0.10);
+}
+table.tokens th { color: var(--gray-500); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.1em; font-weight: var(--fw-semibold); }
+table.tokens td.var { color: var(--blue-300); }
+table.tokens td.val { color: var(--gray-300); }
+table.tokens td.note { color: var(--gray-500); font-family: var(--font-body); }
+
+/* =========================================================
+   TOAST DE COPY
+   ========================================================= */
+.toast {
+  position: fixed;
+  bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--green-500);
+  color: #04210F;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-sm);
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s, transform .2s;
+  box-shadow: var(--glow-green);
+  z-index: 1000;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- =============== SIDEBAR =============== -->
+  <aside class="sidebar">
+    <div class="brand">
+      A NOVA<br>ORDEM
+      <small>do dinheiro · design system</small>
+    </div>
+    <nav>
+      <a href="#brand">01 · Marca</a>
+      <a href="#cores">02 · Cores</a>
+      <a href="#tipografia">03 · Tipografia</a>
+      <a href="#efeitos">04 · Efeitos & Gradientes</a>
+      <a href="#espacamento">05 · Espaçamento</a>
+      <a href="#botoes">06 · Botões</a>
+      <a href="#cards">07 · Cards</a>
+      <a href="#badges">08 · Badges & Ticker</a>
+      <a href="#pricing">09 · Pricing</a>
+      <a href="#selo">10 · Selo de Garantia</a>
+      <a href="#composicao">11 · Composição</a>
+      <a href="#voz">12 · Tom & Voz</a>
+      <a href="#regras">13 · Do / Don't</a>
+      <a href="#tokens">14 · Tokens CSS</a>
+    </nav>
+  </aside>
+
+  <!-- =============== MAIN =============== -->
+  <main class="main">
+
+    <!-- HERO -->
+    <header class="guide-hero">
+      <span class="kicker">Design System · v1.0</span>
+      <h1>
+        A NOVA <span class="blue">ORDEM</span>
+      </h1>
+      <p>Sistema visual para a marca <strong>A Nova Ordem do Dinheiro</strong> — pronto para usar em landing pages, anúncios e materiais de evento. Cores, tipografia, componentes e exemplos copiáveis.</p>
+    </header>
+
+    <!-- 01 · MARCA -->
+    <section id="brand">
+      <h1 class="section-title">01 · <span class="accent">Marca</span></h1>
+      <p class="section-lead">A identidade comunica <strong>autoridade financeira</strong> e <strong>seriedade</strong>, com um toque cinematográfico. Pense em capa de revista de finanças premium cruzada com palco de evento.</p>
+
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="card-title">Personalidade</div>
+          <div class="card-body">Confiança, escassez, urgência elegante. Não grita — impõe presença.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Paleta-âncora</div>
+          <div class="card-body">Preto profundo + azul elétrico (cyan) + verde CTA. Vermelho só para urgência.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Estilo visual</div>
+          <div class="card-body">Vinhetas escuras, feixes de luz, retratos centrais, tipografia condensada de alto impacto.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · CORES -->
+    <section id="cores">
+      <h1 class="section-title">02 · <span class="accent">Cores</span></h1>
+      <p class="section-lead">Clique em qualquer cor para copiar o HEX. A paleta é construída em 4 famílias: fundos, azul-marca, semânticas (verde / vermelho / dourado) e neutros.</p>
+
+      <h2 class="h2">Fundos & superfícies</h2>
+      <div class="grid cols-4">
+        <div class="swatch" data-hex="#04060D"><div class="chip" style="background:#04060D"><span class="role">base</span></div><div class="meta"><div class="name">bg-base</div><div class="hex">#04060D</div></div></div>
+        <div class="swatch" data-hex="#0A1020"><div class="chip" style="background:#0A1020"><span class="role">elevated</span></div><div class="meta"><div class="name">bg-elevated</div><div class="hex">#0A1020</div></div></div>
+        <div class="swatch" data-hex="#0F172A"><div class="chip" style="background:#0F172A"><span class="role">surface</span></div><div class="meta"><div class="name">bg-surface</div><div class="hex">#0F172A</div></div></div>
+        <div class="swatch" data-hex="#0B1B3A"><div class="chip" style="background:#0B1B3A"><span class="role">glow</span></div><div class="meta"><div class="name">bg-glow</div><div class="hex">#0B1B3A</div></div></div>
+      </div>
+
+      <h2 class="h2">Azul-marca (cyan elétrico)</h2>
+      <div class="grid cols-6">
+        <div class="swatch" data-hex="#E6F4FF"><div class="chip" style="background:#E6F4FF"><span class="role" style="color:#0A1428;background:rgba(255,255,255,0.7)">50</span></div><div class="meta"><div class="name">blue-50</div><div class="hex">#E6F4FF</div></div></div>
+        <div class="swatch" data-hex="#BDE2FF"><div class="chip" style="background:#BDE2FF"><span class="role" style="color:#0A1428;background:rgba(255,255,255,0.7)">100</span></div><div class="meta"><div class="name">blue-100</div><div class="hex">#BDE2FF</div></div></div>
+        <div class="swatch" data-hex="#8DD5FF"><div class="chip" style="background:#8DD5FF"><span class="role" style="color:#0A1428;background:rgba(255,255,255,0.7)">200</span></div><div class="meta"><div class="name">blue-200</div><div class="hex">#8DD5FF</div></div></div>
+        <div class="swatch" data-hex="#69C5FF"><div class="chip" style="background:#69C5FF"><span class="role">300</span></div><div class="meta"><div class="name">blue-300</div><div class="hex">#69C5FF</div></div></div>
+        <div class="swatch" data-hex="#5BB7F7"><div class="chip" style="background:#5BB7F7"><span class="role">400 ★</span></div><div class="meta"><div class="name">blue-400</div><div class="hex">#5BB7F7</div></div></div>
+        <div class="swatch" data-hex="#2A8FE0"><div class="chip" style="background:#2A8FE0"><span class="role">500</span></div><div class="meta"><div class="name">blue-500</div><div class="hex">#2A8FE0</div></div></div>
+        <div class="swatch" data-hex="#1E6BC2"><div class="chip" style="background:#1E6BC2"><span class="role">600</span></div><div class="meta"><div class="name">blue-600</div><div class="hex">#1E6BC2</div></div></div>
+        <div class="swatch" data-hex="#1E40AF"><div class="chip" style="background:#1E40AF"><span class="role">700 ★</span></div><div class="meta"><div class="name">blue-700</div><div class="hex">#1E40AF</div></div></div>
+        <div class="swatch" data-hex="#14306E"><div class="chip" style="background:#14306E"><span class="role">800</span></div><div class="meta"><div class="name">blue-800</div><div class="hex">#14306E</div></div></div>
+        <div class="swatch" data-hex="#0A1F4A"><div class="chip" style="background:#0A1F4A"><span class="role">900</span></div><div class="meta"><div class="name">blue-900</div><div class="hex">#0A1F4A</div></div></div>
+      </div>
+      <p class="muted" style="margin-top:var(--space-4); font-size: var(--fs-sm);">★ <strong>blue-400</strong> é o cyan-assinatura usado em "FRANCISCO BELTRÃO" e nos destaques de texto. <strong>blue-700</strong> é a base dos botões secundários da landing page.</p>
+
+      <h2 class="h2">Semânticas — CTA e Urgência</h2>
+      <div class="grid cols-4">
+        <div class="swatch" data-hex="#22C55E"><div class="chip" style="background:#22C55E"><span class="role">cta primário</span></div><div class="meta"><div class="name">green-500</div><div class="hex">#22C55E</div></div></div>
+        <div class="swatch" data-hex="#16A34A"><div class="chip" style="background:#16A34A"><span class="role">cta hover</span></div><div class="meta"><div class="name">green-600</div><div class="hex">#16A34A</div></div></div>
+        <div class="swatch" data-hex="#DC2626"><div class="chip" style="background:#DC2626"><span class="role">urgência</span></div><div class="meta"><div class="name">red-600</div><div class="hex">#DC2626</div></div></div>
+        <div class="swatch" data-hex="#F59E0B"><div class="chip" style="background:#F59E0B"><span class="role">selo</span></div><div class="meta"><div class="name">gold-500</div><div class="hex">#F59E0B</div></div></div>
+      </div>
+
+      <h2 class="h2">Neutros</h2>
+      <div class="grid cols-6">
+        <div class="swatch" data-hex="#FFFFFF"><div class="chip" style="background:#FFFFFF"><span class="role" style="color:#0A1428;background:rgba(255,255,255,0.7)">white</span></div><div class="meta"><div class="name">white</div><div class="hex">#FFFFFF</div></div></div>
+        <div class="swatch" data-hex="#CBD5E1"><div class="chip" style="background:#CBD5E1"><span class="role" style="color:#0A1428;background:rgba(255,255,255,0.7)">300</span></div><div class="meta"><div class="name">gray-300</div><div class="hex">#CBD5E1</div></div></div>
+        <div class="swatch" data-hex="#94A3B8"><div class="chip" style="background:#94A3B8"><span class="role">400</span></div><div class="meta"><div class="name">gray-400</div><div class="hex">#94A3B8</div></div></div>
+        <div class="swatch" data-hex="#64748B"><div class="chip" style="background:#64748B"><span class="role">500</span></div><div class="meta"><div class="name">gray-500</div><div class="hex">#64748B</div></div></div>
+        <div class="swatch" data-hex="#334155"><div class="chip" style="background:#334155"><span class="role">700</span></div><div class="meta"><div class="name">gray-700</div><div class="hex">#334155</div></div></div>
+        <div class="swatch" data-hex="#0F172A"><div class="chip" style="background:#0F172A"><span class="role">900</span></div><div class="meta"><div class="name">gray-900</div><div class="hex">#0F172A</div></div></div>
+      </div>
+    </section>
+
+    <!-- 03 · TIPOGRAFIA -->
+    <section id="tipografia">
+      <h1 class="section-title">03 · <span class="accent">Tipografia</span></h1>
+      <p class="section-lead">Duas famílias trabalham em conjunto: uma <strong>display condensada</strong> para impacto (Bebas Neue ou Anton, derivada do letterâ€‘piece original) e <strong>Inter</strong> para títulos, corpo e UI.</p>
+
+      <div class="type-card">
+        <div class="label">Display — títulos de impacto</div>
+        <div class="sample-display">FRANCISCO <span class="blue">BELTRÃO</span></div>
+        <div class="specs">
+          <span><strong>Família:</strong> Bebas Neue / Anton</span>
+          <span><strong>Peso:</strong> 400 Regular (a fonte já é condensada e densa)</span>
+          <span><strong>Tracking:</strong> 0.02em</span>
+          <span><strong>Line-height:</strong> 0.9 – 1.0</span>
+          <span><strong>Caso:</strong> SEMPRE caixa alta</span>
+        </div>
+      </div>
+
+      <div class="type-card">
+        <div class="label">Heading — UI / seções</div>
+        <h2 class="sample-h" style="font-size: var(--fs-4xl); margin: var(--space-4) 0;">A verdade nua e crua sobre dinheiro</h2>
+        <div class="specs">
+          <span><strong>Família:</strong> Inter</span>
+          <span><strong>Pesos:</strong> 700 / 800 / 900</span>
+          <span><strong>Letter-spacing:</strong> -0.01em</span>
+          <span><strong>Caso:</strong> Caixa alta para H1/H2, mista para subtítulos</span>
+        </div>
+      </div>
+
+      <div class="type-card">
+        <div class="label">Body — corpo de texto</div>
+        <p style="font-size: var(--fs-lg); color: var(--gray-200); margin: var(--space-4) 0;">Existe um sistema simples e replicável que quase ninguém conhece. Um sistema que os ricos usam para continuar crescendo mesmo quando todos os outros estão quebrando. E agora você vai ter acesso a ele.</p>
+        <div class="specs">
+          <span><strong>Família:</strong> Inter</span>
+          <span><strong>Pesos:</strong> 400 / 500 / 600</span>
+          <span><strong>Tamanho base:</strong> 16–18px</span>
+          <span><strong>Line-height:</strong> 1.5 – 1.7</span>
+        </div>
+      </div>
+
+      <h2 class="h2">Escala tipográfica</h2>
+      <div class="card" style="padding: var(--space-6);">
+        <div class="scale-row"><span class="tag">--fs-xs</span><span class="px">12px / 0.75rem</span><span class="sample" style="font-size: 12px;">Aa — tag, legenda</span></div>
+        <div class="scale-row"><span class="tag">--fs-sm</span><span class="px">14px / 0.875rem</span><span class="sample" style="font-size: 14px;">Aa — texto auxiliar</span></div>
+        <div class="scale-row"><span class="tag">--fs-base</span><span class="px">16px / 1rem</span><span class="sample" style="font-size: 16px;">Aa — corpo padrão</span></div>
+        <div class="scale-row"><span class="tag">--fs-lg</span><span class="px">18px / 1.125rem</span><span class="sample" style="font-size: 18px;">Aa — corpo lead</span></div>
+        <div class="scale-row"><span class="tag">--fs-xl</span><span class="px">20px / 1.25rem</span><span class="sample" style="font-size: 20px;">Aa — subtítulo</span></div>
+        <div class="scale-row"><span class="tag">--fs-2xl</span><span class="px">24px / 1.5rem</span><span class="sample" style="font-size: 24px;">Aa — H3</span></div>
+        <div class="scale-row"><span class="tag">--fs-3xl</span><span class="px">30px / 1.875rem</span><span class="sample" style="font-size: 30px;">Aa — H2</span></div>
+        <div class="scale-row"><span class="tag">--fs-4xl</span><span class="px">36px / 2.25rem</span><span class="sample" style="font-size: 36px;">Aa — H1 mobile</span></div>
+        <div class="scale-row"><span class="tag">--fs-5xl</span><span class="px">48px / 3rem</span><span class="sample" style="font-size: 48px;">Aa — hero secundário</span></div>
+        <div class="scale-row"><span class="tag">--fs-6xl</span><span class="px">60px / 3.75rem</span><span class="sample" style="font-size: 60px; font-family: var(--font-display);">Aa</span></div>
+        <div class="scale-row"><span class="tag">--fs-7xl</span><span class="px">72px / 4.5rem</span><span class="sample" style="font-size: 72px; font-family: var(--font-display);">Aa</span></div>
+        <div class="scale-row"><span class="tag">--fs-8xl</span><span class="px">96px / 6rem</span><span class="sample" style="font-size: 96px; font-family: var(--font-display); line-height: 1;">Aa</span></div>
+      </div>
+    </section>
+
+    <!-- 04 · EFEITOS -->
+    <section id="efeitos">
+      <h1 class="section-title">04 · <span class="accent">Efeitos & Gradientes</span></h1>
+      <p class="section-lead">A profundidade é construída com gradientes radiais, feixes de luz e glows suaves. Tudo gira em torno de uma fonte de luz central (geralmente atrás do sujeito).</p>
+
+      <h2 class="h2">Gradientes-assinatura</h2>
+      <div class="grid cols-3">
+        <div>
+          <div style="background: var(--grad-bg-hero); height: 180px; border-radius: var(--radius-xl); border: 1px solid rgba(91,183,247,0.15);"></div>
+          <h3 class="h3">grad-bg-hero</h3>
+          <p class="muted" style="font-size: var(--fs-sm);">Radial do azul-glow para o preto. Use como fundo de hero e seções principais.</p>
+        </div>
+        <div>
+          <div style="background: var(--grad-bg-panel); height: 180px; border-radius: var(--radius-xl); border: 1px solid rgba(91,183,247,0.15);"></div>
+          <h3 class="h3">grad-bg-panel</h3>
+          <p class="muted" style="font-size: var(--fs-sm);">Linear sutil para cards e seções secundárias.</p>
+        </div>
+        <div>
+          <div style="background: var(--grad-blue-cta); height: 180px; border-radius: var(--radius-xl);"></div>
+          <h3 class="h3">grad-blue-cta</h3>
+          <p class="muted" style="font-size: var(--fs-sm);">Diagonal 135° usada nos botões secundários e barras de progresso.</p>
+        </div>
+        <div>
+          <div style="background: var(--grad-green-cta); height: 180px; border-radius: var(--radius-xl);"></div>
+          <h3 class="h3">grad-green-cta</h3>
+          <p class="muted" style="font-size: var(--fs-sm);">Botão CTA verde principal. Sempre com glow verde.</p>
+        </div>
+        <div>
+          <div style="background: var(--grad-text-blue); height: 180px; border-radius: var(--radius-xl);"></div>
+          <h3 class="h3">grad-text-blue</h3>
+          <p class="muted" style="font-size: var(--fs-sm);">Aplicado em <code>background-clip: text</code> para o efeito metálico azul.</p>
+        </div>
+        <div>
+          <div style="background: var(--bg-base) var(--grad-light-beam); height: 180px; border-radius: var(--radius-xl); border: 1px solid rgba(91,183,247,0.15);"></div>
+          <h3 class="h3">grad-light-beam</h3>
+          <p class="muted" style="font-size: var(--fs-sm);">Feixe de luz vertical — overlay para criar profundidade atrás de retratos.</p>
+        </div>
+      </div>
+
+      <h2 class="h2">Sombras & Glows</h2>
+      <div class="grid cols-4">
+        <div class="card" style="text-align:center; padding: var(--space-8);">
+          <div style="width: 60px; height: 60px; background: var(--bg-surface); border-radius: var(--radius-md); margin: 0 auto; box-shadow: var(--shadow-md);"></div>
+          <div class="muted" style="margin-top: var(--space-3); font-size: var(--fs-xs);">shadow-md</div>
+        </div>
+        <div class="card" style="text-align:center; padding: var(--space-8);">
+          <div style="width: 60px; height: 60px; background: var(--bg-surface); border-radius: var(--radius-md); margin: 0 auto; box-shadow: var(--shadow-xl);"></div>
+          <div class="muted" style="margin-top: var(--space-3); font-size: var(--fs-xs);">shadow-xl</div>
+        </div>
+        <div class="card" style="text-align:center; padding: var(--space-8);">
+          <div style="width: 60px; height: 60px; background: var(--blue-400); border-radius: var(--radius-md); margin: 0 auto; box-shadow: var(--glow-blue);"></div>
+          <div class="muted" style="margin-top: var(--space-3); font-size: var(--fs-xs);">glow-blue</div>
+        </div>
+        <div class="card" style="text-align:center; padding: var(--space-8);">
+          <div style="width: 60px; height: 60px; background: var(--green-500); border-radius: var(--radius-md); margin: 0 auto; box-shadow: var(--glow-green);"></div>
+          <div class="muted" style="margin-top: var(--space-3); font-size: var(--fs-xs);">glow-green</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · ESPAÇAMENTO -->
+    <section id="espacamento">
+      <h1 class="section-title">05 · <span class="accent">Espaçamento & Layout</span></h1>
+      <p class="section-lead">Sistema base 4px. Use os tokens em padding, gap e margens — nunca valores arbitrários. Container máximo: <strong>1200px</strong>.</p>
+
+      <h2 class="h2">Escala de espaçamento</h2>
+      <div class="card" style="padding: var(--space-6);">
+        <div class="scale-row"><span class="tag">--space-1</span><span class="px">4px</span><div style="background: var(--blue-400); height: 12px; width: 4px;"></div></div>
+        <div class="scale-row"><span class="tag">--space-2</span><span class="px">8px</span><div style="background: var(--blue-400); height: 12px; width: 8px;"></div></div>
+        <div class="scale-row"><span class="tag">--space-3</span><span class="px">12px</span><div style="background: var(--blue-400); height: 12px; width: 12px;"></div></div>
+        <div class="scale-row"><span class="tag">--space-4</span><span class="px">16px</span><div style="background: var(--blue-400); height: 12px; width: 16px;"></div></div>
+        <div class="scale-row"><span class="tag">--space-6</span><span class="px">24px</span><div style="background: var(--blue-400); height: 12px; width: 24px;"></div></div>
+        <div class="scale-row"><span class="tag">--space-8</span><span class="px">32px</span><div style="background: var(--blue-400); height: 12px; width: 32px;"></div></div>
+        <div class="scale-row"><span class="tag">--space-12</span><span class="px">48px</span><div style="background: var(--blue-400); height: 12px; width: 48px;"></div></div>
+        <div class="scale-row"><span class="tag">--space-16</span><span class="px">64px</span><div style="background: var(--blue-400); height: 12px; width: 64px;"></div></div>
+        <div class="scale-row"><span class="tag">--space-24</span><span class="px">96px</span><div style="background: var(--blue-400); height: 12px; width: 96px;"></div></div>
+      </div>
+
+      <h2 class="h2">Border radius</h2>
+      <div class="grid cols-6">
+        <div class="card" style="text-align:center;"><div style="background: var(--blue-500); height: 64px; border-radius: 4px;"></div><div class="muted" style="margin-top: var(--space-2); font-size: var(--fs-xs);">--radius-sm · 4px</div></div>
+        <div class="card" style="text-align:center;"><div style="background: var(--blue-500); height: 64px; border-radius: 8px;"></div><div class="muted" style="margin-top: var(--space-2); font-size: var(--fs-xs);">--radius-md · 8px</div></div>
+        <div class="card" style="text-align:center;"><div style="background: var(--blue-500); height: 64px; border-radius: 12px;"></div><div class="muted" style="margin-top: var(--space-2); font-size: var(--fs-xs);">--radius-lg · 12px</div></div>
+        <div class="card" style="text-align:center;"><div style="background: var(--blue-500); height: 64px; border-radius: 16px;"></div><div class="muted" style="margin-top: var(--space-2); font-size: var(--fs-xs);">--radius-xl · 16px</div></div>
+        <div class="card" style="text-align:center;"><div style="background: var(--blue-500); height: 64px; border-radius: 24px;"></div><div class="muted" style="margin-top: var(--space-2); font-size: var(--fs-xs);">--radius-2xl · 24px</div></div>
+        <div class="card" style="text-align:center;"><div style="background: var(--blue-500); height: 64px; border-radius: 9999px;"></div><div class="muted" style="margin-top: var(--space-2); font-size: var(--fs-xs);">--radius-pill</div></div>
+      </div>
+    </section>
+
+    <!-- 06 · BOTÕES -->
+    <section id="botoes">
+      <h1 class="section-title">06 · <span class="accent">Botões</span></h1>
+      <p class="section-lead">Três variantes: <strong>verde</strong> (CTA primário em anúncios), <strong>azul</strong> (CTA principal da landing page) e <strong>ghost</strong> (links secundários).</p>
+
+      <h2 class="h2">Variantes</h2>
+      <div class="card" style="display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; padding: var(--space-8);">
+        <button class="btn btn-green">Clique em saiba mais</button>
+        <button class="btn btn-blue">Garantir meu ingresso agora</button>
+        <button class="btn btn-ghost">Ver detalhes</button>
+      </div>
+
+      <h2 class="h2">Tamanhos</h2>
+      <div class="card" style="display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; padding: var(--space-8);">
+        <button class="btn btn-blue btn-sm">Pequeno</button>
+        <button class="btn btn-blue">Padrão</button>
+        <button class="btn btn-blue btn-lg">Grande</button>
+        <button class="btn btn-blue btn-xl">Hero CTA</button>
+      </div>
+
+      <h2 class="h2">Anatomia</h2>
+      <pre class="code">
+<span class="com">/* CTA Verde — usado em ads */</span>
+<span class="key">.btn-green</span> {
+  background: <span class="val">linear-gradient(135deg, #4ADE80 0%, #16A34A 100%)</span>;
+  color: <span class="val">#04210F</span>;
+  padding: <span class="val">14px 28px</span>;
+  border-radius: <span class="val">9999px</span>;
+  font-weight: <span class="val">700</span>;
+  box-shadow: <span class="val">0 0 24px rgba(34,197,94,0.45)</span>;
+}
+
+<span class="com">/* CTA Azul — usado na landing page */</span>
+<span class="key">.btn-blue</span> {
+  background: <span class="val">linear-gradient(135deg, #2A8FE0 0%, #1E40AF 100%)</span>;
+  color: <span class="val">#FFFFFF</span>;
+  box-shadow: <span class="val">0 0 40px rgba(91,183,247,0.45)</span>;
+}</pre>
+    </section>
+
+    <!-- 07 · CARDS -->
+    <section id="cards">
+      <h1 class="section-title">07 · <span class="accent">Cards</span></h1>
+      <p class="section-lead">Três tipos: <strong>card padrão</strong> (cenário "A crise não perdoa"), <strong>card feature</strong> (com ícone e glow, para "O que você vai descobrir"), e <strong>card de depoimento</strong>.</p>
+
+      <h2 class="h2">Card padrão</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="card-title">Prejuízo no CLT</div>
+          <div class="card-body">Sem modo de avistar o seu próprio negócio.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Lucro some</div>
+          <div class="card-body">Ganha bem, mas o salário todo vai embora em dívidas e empréstimos.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Aposentadoria</div>
+          <div class="card-body">Tem uma empresa, mas a financeira está sufocando.</div>
+        </div>
+      </div>
+
+      <h2 class="h2">Card feature (com ícone + glow)</h2>
+      <div class="grid cols-2">
+        <div class="card-feature">
+          <div class="icon">$</div>
+          <h3 class="h3" style="margin-top:0; color: var(--white); font-size: var(--fs-xl);">Como multiplicar seus lucros em 12x</h3>
+          <p class="muted" style="font-size: var(--fs-sm); position: relative;">Mesmo em cenário recessivo, sem dependência de sorte.</p>
+        </div>
+        <div class="card-feature">
+          <div class="icon">⚡</div>
+          <h3 class="h3" style="margin-top:0; color: var(--white); font-size: var(--fs-xl);">O método para projetar finanças sólidas</h3>
+          <p class="muted" style="font-size: var(--fs-sm); position: relative;">Dívidas e instabilidade fora da equação em 90 dias.</p>
+        </div>
+      </div>
+
+      <h2 class="h2">Card de depoimento</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <div style="display:flex; align-items:center; gap: var(--space-3); margin-bottom: var(--space-3);">
+            <div style="width:40px;height:40px;border-radius:50%;background: var(--grad-blue-cta);"></div>
+            <div>
+              <div style="color: var(--white); font-weight: var(--fw-semibold); font-size: var(--fs-sm);">Felipe Alves</div>
+              <div class="muted" style="font-size: var(--fs-xs);">Empresário</div>
+            </div>
+          </div>
+          <p style="font-size: var(--fs-sm); color: var(--gray-300); font-style: italic;">"Minha empresa estava estagnada, e logo nas primeiras semanas eu já tinha o que fazer. Aplicando o sistema, em 3 meses cresci 27%."</p>
+        </div>
+        <div class="card">
+          <div style="display:flex; align-items:center; gap: var(--space-3); margin-bottom: var(--space-3);">
+            <div style="width:40px;height:40px;border-radius:50%;background: var(--grad-blue-cta);"></div>
+            <div>
+              <div style="color: var(--white); font-weight: var(--fw-semibold); font-size: var(--fs-sm);">Joeleine Vicente</div>
+              <div class="muted" style="font-size: var(--fs-xs);">Empresária no CLT</div>
+            </div>
+          </div>
+          <p style="font-size: var(--fs-sm); color: var(--gray-300); font-style: italic;">"Eu sempre fui o tipo de alma que vivia regulada, mas a impotência o medo de falar 'me trava'."</p>
+        </div>
+        <div class="card">
+          <div style="display:flex; align-items:center; gap: var(--space-3); margin-bottom: var(--space-3);">
+            <div style="width:40px;height:40px;border-radius:50%;background: var(--grad-blue-cta);"></div>
+            <div>
+              <div style="color: var(--white); font-weight: var(--fw-semibold); font-size: var(--fs-sm);">Diego Santos</div>
+              <div class="muted" style="font-size: var(--fs-xs);">Empreendedor</div>
+            </div>
+          </div>
+          <p style="font-size: var(--fs-sm); color: var(--gray-300); font-style: italic;">"Eu via meu chefe lucrar enquanto eu pagava as contas. Apliquei e em 6 meses zerei dívidas."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 · BADGES -->
+    <section id="badges">
+      <h1 class="section-title">08 · <span class="accent">Badges & Ticker</span></h1>
+      <p class="section-lead">Elementos pequenos de status, urgência e contagem regressiva — o motor de escassez visual da página.</p>
+
+      <h2 class="h2">Badges</h2>
+      <div class="card" style="display: flex; flex-wrap: wrap; gap: var(--space-3); padding: var(--space-6);">
+        <span class="badge badge-red">Vagas limitadas</span>
+        <span class="badge badge-blue">Lote 0</span>
+        <span class="badge badge-green">Promocional</span>
+        <span class="badge badge-gold">Garantia 100%</span>
+      </div>
+
+      <h2 class="h2">Ticker — barra de urgência</h2>
+      <div class="ticker"><span class="ticker-track">VAGAS LIMITADAS · VAGAS LIMITADAS · VAGAS LIMITADAS · VAGAS LIMITADAS · VAGAS LIMITADAS · VAGAS LIMITADAS · </span></div>
+
+      <h2 class="h2">Contador regressivo</h2>
+      <div class="card" style="display: flex; gap: var(--space-4); align-items: center; padding: var(--space-6);">
+        <span class="badge badge-red">Últimas vagas</span>
+        <div class="timer">
+          <span>00</span><span class="colon">:</span>
+          <span>02</span><span class="colon">:</span>
+          <span>44</span><span class="colon">:</span>
+          <span>50</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 · PRICING -->
+    <section id="pricing">
+      <h1 class="section-title">09 · <span class="accent">Pricing</span></h1>
+      <p class="section-lead">Cartão único com lote, barra de progresso de vagas, preço grande em fonte display e bullets de benefícios.</p>
+
+      <div class="pricing">
+        <div class="lote">LOTE 0</div>
+        <div class="progress"><span></span></div>
+        <div class="muted" style="font-size: var(--fs-xs); margin-bottom: var(--space-3);">87% das vagas preenchidas</div>
+        <div class="price"><small>R$</small>67</div>
+        <ul>
+          <li>Acesso ao evento presencial</li>
+          <li>Diretivas e suas técnicas com o mestre</li>
+          <li>Garantia incondicional de 7 dias</li>
+        </ul>
+        <button class="btn btn-blue" style="width:100%;">Garantir meu ingresso agora</button>
+      </div>
+    </section>
+
+    <!-- 10 · SELO -->
+    <section id="selo">
+      <h1 class="section-title">10 · <span class="accent">Selo de garantia</span></h1>
+      <p class="section-lead">Selo circular dourado para reforçar a garantia incondicional. Pode ser usado em CTAs finais e seção de FAQ.</p>
+
+      <div style="display:flex; gap: var(--space-8); align-items: center; flex-wrap: wrap;">
+        <div class="seal">
+          <div class="big">100%</div>
+          <div class="small">SATISFAÇÃO · GARANTIDA</div>
+        </div>
+        <div style="max-width: 380px;">
+          <h3 class="h3" style="color: var(--white); font-size: var(--fs-xl); margin-top: 0;">Garantia incondicional</h3>
+          <p class="muted">Garantimos seu dinheiro de volta se você não compreender o evento e se comprometer aplicar as técnicas que você apresentar e mesmo assim não tiver absolutamente nada mudado em sua vida e no seu conhecimento.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 · COMPOSIÇÃO -->
+    <section id="composicao">
+      <h1 class="section-title">11 · <span class="accent">Composição</span></h1>
+      <p class="section-lead">Exemplo de anúncio social no estilo da marca. Reproduz os 4 criativos enviados — note o feixe de luz central, o retrato sobreposto, e o logotipo "fantasma" ao fundo.</p>
+
+      <div class="grid cols-2">
+        <div class="ad-preview">
+          <div class="logo-stack">A NOVA<br>ORDEM</div>
+          <div class="ad-kicker">VAI SER EM</div>
+          <div class="ad-city">FRANCISCO BELTRÃO</div>
+          <div class="ad-sub">Aprenda a construir riqueza sem depender de sorte.</div>
+          <div class="ad-tagline">O maior evento de <strong>inteligência financeira do Brasil.</strong></div>
+          <div style="position: relative;"><button class="btn btn-green">Clique em saiba mais</button></div>
+        </div>
+
+        <div class="ad-preview">
+          <div class="logo-stack">A NOVA<br>ORDEM</div>
+          <div class="ad-kicker">VAI SER EM</div>
+          <div class="ad-city">FRANCISCO BELTRÃO</div>
+          <div class="ad-sub">Tudo que a escola não ensina sobre construir riqueza.</div>
+          <div class="ad-tagline">O maior evento de <strong>inteligência financeira do Brasil.</strong></div>
+          <div style="position: relative;"><button class="btn btn-blue">Garantir ingresso</button></div>
+        </div>
+      </div>
+
+      <h2 class="h2">Anatomia do anúncio</h2>
+      <ol style="color: var(--gray-300); padding-left: var(--space-6); line-height: 1.8;">
+        <li><strong style="color: var(--white);">Fundo:</strong> radial escuro de azul-glow para preto, com textura sutil de luz.</li>
+        <li><strong style="color: var(--white);">Logo fantasma:</strong> tipografia display em opacidade ~18%, atrás do retrato.</li>
+        <li><strong style="color: var(--white);">Retrato:</strong> centralizado, iluminado por feixe lateral em azul.</li>
+        <li><strong style="color: var(--white);">Kicker:</strong> "VAI SER EM" em Inter Bold, caixa alta, branco.</li>
+        <li><strong style="color: var(--white);">Cidade:</strong> Bebas Neue gigante com gradiente azul aplicado em <code>background-clip: text</code>.</li>
+        <li><strong style="color: var(--white);">Subtítulo:</strong> uma frase de promessa em branco.</li>
+        <li><strong style="color: var(--white);">Tagline:</strong> assinatura institucional em cinza claro.</li>
+        <li><strong style="color: var(--white);">CTA:</strong> pílula verde (anúncio) ou azul (landing).</li>
+      </ol>
+    </section>
+
+    <!-- 12 · VOZ -->
+    <section id="voz">
+      <h1 class="section-title">12 · <span class="accent">Tom & Voz</span></h1>
+      <p class="section-lead">A escrita reforça o visual: afirmativa, direta, com urgência elegante. Nunca recorrer a clichês motivacionais vazios — sempre ancorar em método e dado.</p>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <h3 class="h3" style="color: var(--blue-300); margin-top:0;">Pilares de voz</h3>
+          <ul style="color: var(--gray-300); padding-left: var(--space-5);">
+            <li><strong style="color: var(--white);">Afirmativa</strong> — "Os ricos não esperam a crise passar."</li>
+            <li><strong style="color: var(--white);">Direta</strong> — frases curtas, verbos no infinitivo.</li>
+            <li><strong style="color: var(--white);">Realista</strong> — reconhece a dor antes da promessa.</li>
+            <li><strong style="color: var(--white);">Concreta</strong> — números, casos, mecanismos.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="h3" style="color: var(--blue-300); margin-top:0;">Frases-âncora</h3>
+          <ul style="color: var(--gray-300); padding-left: var(--space-5);">
+            <li>"Aprenda a construir riqueza sem depender de sorte."</li>
+            <li>"Tudo que a escola não ensina sobre construir riqueza."</li>
+            <li>"A crise não perdoa."</li>
+            <li>"Esse não é mais um evento motivacional."</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 · DO/DON'T -->
+    <section id="regras">
+      <h1 class="section-title">13 · <span class="accent">Do / Don't</span></h1>
+      <p class="section-lead">Regras práticas para manter consistência.</p>
+
+      <div class="grid cols-2">
+        <div class="rule do">
+          <div class="rule-head">✓ Faça</div>
+          <ul style="margin:0; padding-left: var(--space-5); color: var(--gray-200);">
+            <li>Usar fundo preto/navy + 1 fonte de luz azul</li>
+            <li>Aplicar gradiente azul no texto display via <code>background-clip</code></li>
+            <li>Manter CTAs sempre em pílula com glow</li>
+            <li>Reservar vermelho APENAS para urgência</li>
+            <li>Usar caixa alta no display, mista no corpo</li>
+            <li>Construir hierarquia com tamanho, não com cor</li>
+          </ul>
+        </div>
+        <div class="rule dont">
+          <div class="rule-head">✗ Não faça</div>
+          <ul style="margin:0; padding-left: var(--space-5); color: var(--gray-200);">
+            <li>Usar fundos brancos ou claros</li>
+            <li>Misturar verde e vermelho na mesma seção</li>
+            <li>Aplicar mais de 2 famílias tipográficas</li>
+            <li>Botões retangulares sem raio pill</li>
+            <li>Texto em azul-marca sobre fundo claro (sem contraste)</li>
+            <li>Usar gradientes coloridos em fotos de pessoas</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 · TOKENS -->
+    <section id="tokens">
+      <h1 class="section-title">14 · <span class="accent">Tokens CSS</span></h1>
+      <p class="section-lead">Copie este bloco para iniciar qualquer página do projeto. Tudo já está nomeado e mapeado.</p>
+
+      <h2 class="h2">Variáveis principais</h2>
+      <table class="tokens">
+        <thead><tr><th>Token</th><th>Valor</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td class="var">--bg-base</td><td class="val">#04060D</td><td class="note">Fundo absoluto da página</td></tr>
+          <tr><td class="var">--bg-elevated</td><td class="val">#0A1020</td><td class="note">Cards e seções elevadas</td></tr>
+          <tr><td class="var">--blue-400</td><td class="val">#5BB7F7</td><td class="note">Destaque principal (cidade, links)</td></tr>
+          <tr><td class="var">--blue-700</td><td class="val">#1E40AF</td><td class="note">CTA azul da landing</td></tr>
+          <tr><td class="var">--green-500</td><td class="val">#22C55E</td><td class="note">CTA verde dos anúncios</td></tr>
+          <tr><td class="var">--red-600</td><td class="val">#DC2626</td><td class="note">Ticker / urgência</td></tr>
+          <tr><td class="var">--gold-500</td><td class="val">#F59E0B</td><td class="note">Selo de garantia</td></tr>
+          <tr><td class="var">--font-display</td><td class="val">'Bebas Neue', Anton, Impact</td><td class="note">Títulos de impacto</td></tr>
+          <tr><td class="var">--font-body</td><td class="val">'Inter', sans-serif</td><td class="note">UI e corpo</td></tr>
+          <tr><td class="var">--radius-pill</td><td class="val">9999px</td><td class="note">Botões CTA, badges</td></tr>
+          <tr><td class="var">--glow-blue</td><td class="val">0 0 40px rgba(91,183,247,.45)</td><td class="note">Halo dos botões azuis</td></tr>
+          <tr><td class="var">--glow-green</td><td class="val">0 0 24px rgba(34,197,94,.45)</td><td class="note">Halo dos botões verdes</td></tr>
+          <tr><td class="var">--grad-text-blue</td><td class="val">linear-gradient(180deg, #BDE2FF→#2A8FE0)</td><td class="note">Aplicado em texto display</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="h2">CSS pronto para colar</h2>
+      <pre class="code">
+<span class="key">:root</span> {
+  <span class="com">/* Fundos */</span>
+  --bg-base: <span class="val">#04060D</span>;
+  --bg-elevated: <span class="val">#0A1020</span>;
+  --bg-surface: <span class="val">#0F172A</span>;
+
+  <span class="com">/* Azul-marca */</span>
+  --blue-400: <span class="val">#5BB7F7</span>;
+  --blue-500: <span class="val">#2A8FE0</span>;
+  --blue-700: <span class="val">#1E40AF</span>;
+
+  <span class="com">/* CTA */</span>
+  --green-500: <span class="val">#22C55E</span>;
+  --green-600: <span class="val">#16A34A</span>;
+
+  <span class="com">/* Urgência */</span>
+  --red-600: <span class="val">#DC2626</span>;
+
+  <span class="com">/* Texto */</span>
+  --white: <span class="val">#FFFFFF</span>;
+  --gray-400: <span class="val">#94A3B8</span>;
+
+  <span class="com">/* Tipografia */</span>
+  --font-display: <span class="val">'Bebas Neue', Anton, Impact</span>;
+  --font-body: <span class="val">'Inter', system-ui, sans-serif</span>;
+
+  <span class="com">/* Radius & glow */</span>
+  --radius-pill: <span class="val">9999px</span>;
+  --glow-blue: <span class="val">0 0 40px rgba(91,183,247,.45)</span>;
+  --glow-green: <span class="val">0 0 24px rgba(34,197,94,.45)</span>;
+
+  <span class="com">/* Gradientes */</span>
+  --grad-bg-hero: <span class="val">radial-gradient(ellipse at center, #0B1B3A 0%, #050B1C 45%, #02040A 100%)</span>;
+  --grad-blue-cta: <span class="val">linear-gradient(135deg, #2A8FE0, #1E40AF)</span>;
+  --grad-green-cta: <span class="val">linear-gradient(135deg, #4ADE80, #16A34A)</span>;
+  --grad-text-blue: <span class="val">linear-gradient(180deg, #BDE2FF, #5BB7F7 60%, #2A8FE0)</span>;
+}</pre>
+
+      <h2 class="h2">Importação de fontes</h2>
+      <pre class="code">
+<span class="com">&lt;!-- Coloque no &lt;head&gt; --&gt;</span>
+&lt;<span class="key">link</span> <span class="key">href</span>=<span class="val">"https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;600;700;800;900&amp;display=swap"</span> <span class="key">rel</span>=<span class="val">"stylesheet"</span>&gt;</pre>
+    </section>
+
+    <footer style="padding: var(--space-12) 0; text-align: center; color: var(--gray-500); font-size: var(--fs-xs); border-top: 1px solid rgba(91,183,247,0.08);">
+      Design System · A Nova Ordem do Dinheiro · v1.0 · Extraído por análise visual das peças oficiais
+    </footer>
+
+  </main>
+</div>
+
+<div class="toast" id="toast">HEX copiado!</div>
+
+<script>
+  // copiar cores ao clicar
+  const toast = document.getElementById('toast');
+  document.querySelectorAll('.swatch').forEach(sw => {
+    sw.addEventListener('click', async () => {
+      const hex = sw.dataset.hex;
+      try {
+        await navigator.clipboard.writeText(hex);
+        toast.textContent = hex + ' copiado!';
+        toast.classList.add('show');
+        sw.classList.add('copied');
+        setTimeout(() => {
+          toast.classList.remove('show');
+          sw.classList.remove('copied');
+        }, 1400);
+      } catch (e) {
+        // fallback silencioso
+      }
+    });
+  });
+
+  // contador regressivo decorativo
+  const timer = document.querySelector('.timer');
+  if (timer) {
+    let total = 2 * 3600 + 44 * 60 + 50;
+    setInterval(() => {
+      total = total > 0 ? total - 1 : 0;
+      const h = String(Math.floor(total / 3600)).padStart(2, '0');
+      const m = String(Math.floor((total % 3600) / 60)).padStart(2, '0');
+      const s = String(total % 60).padStart(2, '0');
+      const cells = timer.querySelectorAll('span:not(.colon)');
+      if (cells.length === 4) {
+        cells[0].textContent = '00';
+        cells[1].textContent = h;
+        cells[2].textContent = m;
+        cells[3].textContent = s;
+      }
+    }, 1000);
+  }
+</script>
+
+</body>
+</html>
