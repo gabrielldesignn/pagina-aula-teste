@@ -2,7 +2,7 @@
    DESIGN TOKENS — A Nova Ordem do Dinheiro
    ============================================================ */
 :root {
-  --bg-base:#04060D; --bg-elevated:#0A1020; --bg-surface:#0F172A; --bg-glow:#0B1B3A;
+  --bg-base:#8B0000; --bg-elevated:#0A1020; --bg-surface:#0F172A; --bg-glow:#0B1B3A;
   --blue-50:#E6F4FF; --blue-100:#BDE2FF; --blue-200:#8DD5FF; --blue-300:#69C5FF;
   --blue-400:#5BB7F7; --blue-500:#2A8FE0; --blue-600:#1E6BC2; --blue-700:#1E40AF;
   --blue-800:#14306E; --blue-900:#0A1F4A;
